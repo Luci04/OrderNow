@@ -1,60 +1,28 @@
 import React from "react";
-import styled from "styled-components/native";
-import { StyleSheet, Text, View } from "react-native";
-import { Card } from "react-native-paper";
 import { SvgXml } from "react-native-svg";
+
+import { Text } from "./typography/text.component";
+import { Spacer } from "./spacer/spacer.component";
+
 import star from "../../../../assets/star";
 import open from "../../../../assets/open";
 
-const RestaurantCard = styled(Card)`
-  background-color: white;
-`;
-
-const RestaurantCardCover = styled(Card.Cover)`
-  padding: 20px;
-  background-color: white;
-`;
-
-const Title = styled.Text`
-  font-family:${(props) => props.theme.fonts.heading};
-  font-size:${(props) => props.theme.fontSizes.body}
-  color:${(props) => props.theme.colors.ui.primary};
-`;
-
-const Address = styled(Text)`
-  font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${(props) => props.theme.fontSizes.caption};
-`;
-
-const Info = styled(View)`
-  padding: ${(props) => props.theme.space[3]};
-`;
-
-const Rating = styled(View)`
-  flex-direction: row;
-  padding-top: ${(props) => props.theme.space[2]};
-  padding-bottom: ${(props) => props.theme.space[2]};
-`;
-
-const Section = styled(View)`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const SectionEnd = styled(View)`
-  flex: 1;
-  flex-direction: row;
-  justify-content: flex-end;
-`;
-
-const Open = styled(SvgXml)`
-  flex-direction: row;
-`;
+import {
+  Icon,
+  RestaurantCard,
+  RestaurantCardCover,
+  Address,
+  Info,
+  Rating,
+  Section,
+  SectionEnd,
+  Open,
+} from "./restaurants-info-card.styles";
 
 const RestaurantInfo = ({ restaurant = {} }) => {
   const {
     name = "Some Restaurant",
-    icon,
+    icon = "https://maps.gstatic.com/mapfiles/place_api",
     photos = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgcfas8NKYAEx3f4nl-H4Onh6JnouK6YExMumJKOJi&s",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgcfas8NKYAEx3f4nl-H4Onh6JnouK6YExMumJKOJi&s",
@@ -63,7 +31,7 @@ const RestaurantInfo = ({ restaurant = {} }) => {
     address = "100 some random Street",
     isOpenNow = true,
     rating = 4,
-    isClosedTemporarily,
+    isClosedTemporarily = true,
   } = restaurant;
 
   const ratingArray = Array.from(new Array(Math.ceil(rating)));
@@ -72,7 +40,7 @@ const RestaurantInfo = ({ restaurant = {} }) => {
     <RestaurantCard mode="elevated" elevation={5}>
       <RestaurantCardCover key={name} source={{ uri: `${photos[0]}` }} />
       <Info>
-        <Title>{name}</Title>
+        <Text variant="label">{name}</Text>
         <Section>
           <Rating>
             {ratingArray.map((item, index) => (
@@ -80,7 +48,13 @@ const RestaurantInfo = ({ restaurant = {} }) => {
             ))}
           </Rating>
           <SectionEnd>
+            {isClosedTemporarily && (
+              <Text variant="error">Closed Temporarily</Text>
+            )}
+            <Spacer position="left" size="large" />
             {isOpenNow && <Open xml={open} width={20} height={20} />}
+            <Spacer position="left" size="large" />
+            <Icon style={{ height: 15, width: 15 }} source={{ uri: icon }} />
           </SectionEnd>
         </Section>
         <Address>{address}</Address>
