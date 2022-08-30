@@ -4,7 +4,7 @@ import { locationRequest, locationTransform } from "./location.sevice";
 export const LocationContext = createContext();
 
 export const LocationContextProvider = ({ children }) => {
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState("Chicago");
   const [keyword, setKeyword] = useState();
   const [isLoading, setisLoading] = useState(false);
   const [error, setError] = useState(null);

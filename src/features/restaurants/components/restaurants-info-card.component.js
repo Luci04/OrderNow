@@ -19,7 +19,7 @@ import {
   Open,
 } from "./restaurants-info-card.styles";
 
-const RestaurantInfo = ({ restaurant = {} }) => {
+export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
     name = "Some Restaurant",
     icon = "https://maps.gstatic.com/mapfiles/place_api",
@@ -68,5 +68,3 @@ const RestaurantInfo = ({ restaurant = {} }) => {
     </RestaurantCard>
   );
 };
-
-export default RestaurantInfo;

@@ -14,7 +14,7 @@ export const RestaurantsContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const { location } = useContext(LocationContext);
 
-  const retriveRestaurants = (loc) => {
+  const retriveRestaurants = (loc = "Chicago") => {
     setIsloading(true);
     setTimeout(() => {
       restaurantsRequest(loc)

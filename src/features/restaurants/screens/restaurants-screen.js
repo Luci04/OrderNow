@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components/native";
-import { Searchbar } from "react-native-paper";
-import { FlatList, View } from "react-native";
-import RestaurantInfoCard from "../components/restaurants-info-card.component";
+import { FlatList, TouchableOpacity, View } from "react-native";
+import { RestaurantInfoCard } from "../components/restaurants-info-card.component";
 import { Spacer } from "../components/spacer/spacer.component";
 import { SafeArea } from "../components/utils/safe-area.component";
 import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
@@ -20,7 +19,7 @@ const LoadingContainer = styled(View)`
   left: 50%;
 `;
 
-const RestaurantsScreen = () => {
+const RestaurantsScreen = ({ navigation }) => {
   const { restaurants, error, isloading } = useContext(RestaurantsContext);
 
   return (
@@ -31,17 +30,26 @@ const RestaurantsScreen = () => {
         </LoadingContainer>
       )}
       <Search />
-      <FlatList
-        overScrollMode="never"
-        keyExtractor={(item) => item.name}
-        data={restaurants}
-        contentContainerStyle={{ padding: 16 }}
-        renderItem={({ item }) => (
-          <Spacer position="bottom" size="large">
-            <RestaurantInfoCard restaurant={item} />
-          </Spacer>
-        )}
-      />
+      {!isloading && (
+        <FlatList
+          overScrollMode="never"
+          keyExtractor={(item) => item.name}
+          data={restaurants}
+          contentContainerStyle={{ padding: 16 }}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              activeOpacity={0.2}
+              onPress={() =>
+                navigation.navigate("RestaurantDetail", { restaurant: item })
+              }
+            >
+              <Spacer position="bottom" size="large">
+                <RestaurantInfoCard restaurant={item} />
+              </Spacer>
+            </TouchableOpacity>
+          )}
+        />
+      )}
     </SafeArea>
   );
 };
