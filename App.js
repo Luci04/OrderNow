@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import {
   useFonts as useOswald,
@@ -12,9 +12,20 @@ import { theme } from "./src/infrastructure/theme/index";
 import { RestaurantsContextProvider } from "./src/services/restaurants/restaurants.context";
 import { LocationContextProvider } from "./src/services/location/location.context";
 import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
+import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 import { Navigation } from "./src/infrastructure/navigation/index";
 
 export default function App() {
+  // useEffect(() => {
+  //   createUserWithEmailAndPassword(auth, "Avinashukla@gmail.com", "password")
+  //     .then((user) => {
+  //       console.log(user);
+  //     })
+  //     .catch((err) => {
+  //       signInWithEmailAndPassword(auth,"Avinashukla@gmail.com", "password").
+  //     });
+  // }, []);
+
   const [oswaldLoaded] = useOswald({
     Oswald_400Regular,
   });
@@ -30,14 +41,16 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <FavouritesContextProvider>
-          <LocationContextProvider>
-            <RestaurantsContextProvider>
-              <Navigation />
-              <ExpoStatusBar style="auto" />
-            </RestaurantsContextProvider>
-          </LocationContextProvider>
-        </FavouritesContextProvider>
+        <AuthenticationContextProvider>
+          <FavouritesContextProvider>
+            <LocationContextProvider>
+              <RestaurantsContextProvider>
+                <Navigation />
+                <ExpoStatusBar style="auto" />
+              </RestaurantsContextProvider>
+            </LocationContextProvider>
+          </FavouritesContextProvider>
+        </AuthenticationContextProvider>
       </ThemeProvider>
     </>
   );

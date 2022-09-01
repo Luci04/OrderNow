@@ -52,7 +52,7 @@ const RestaurantsScreen = ({ navigation }) => {
           contentContainerStyle={{ padding: 16 }}
           renderItem={({ item }) => (
             <TouchableOpacity
-              activeOpacity={0.2}
+              activeOpacity={0.8}
               onPress={() =>
                 navigation.navigate("RestaurantDetail", { restaurant: item })
               }

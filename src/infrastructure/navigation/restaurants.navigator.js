@@ -15,8 +15,9 @@ export const RestaurantsNavigator = () => {
       screenOptions={{
         ...TransitionPresets.ModalSlideFromBottomIOS,
         headerShown: false,
+        gestureEnabled: true,
+        gestureDirection: "horizontal",
       }}
-      gestureEnabled={true}
     >
       <RestaurantsStack.Screen
         name="Restaurant"
