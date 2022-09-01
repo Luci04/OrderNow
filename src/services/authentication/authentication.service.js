@@ -20,6 +20,10 @@ initializeApp(firebaseConfig);
 
 const auth = getAuth();
 
+export const registerRequest = async (email, password) => {
+  return await createUserWithEmailAndPassword(auth, email, password);
+};
+
 export const loginRequest = async (email, password) => {
   return await signInWithEmailAndPassword(auth, email, password);
 };

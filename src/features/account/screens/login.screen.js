@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Spacer } from "../../../features/restaurants/components/spacer/spacer.component";
 import { Text } from "../../../features/restaurants/components/typography/text.component";
+import { ActivityIndicator, Colors } from "react-native-paper";
 import {
   AccountBackground,
   AccountContainer,
@@ -11,9 +12,10 @@ import {
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
 
 export const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("Avinashukla@gmail.com");
-  const [password, setPassword] = useState("passwor");
-  const { onLogin, error } = useContext(AuthenticationContext);
+  const [email, setEmail] = useState("avinashukla@gmail.com");
+  const [password, setPassword] = useState("password");
+
+  const { onLogin, isLoading, error } = useContext(AuthenticationContext);
 
   return (
     <AccountBackground>
@@ -22,6 +24,7 @@ export const LoginScreen = ({ navigation }) => {
         <Spacer size="large">
           <AuthInput
             label="E-mail"
+            caretHidden={false}
             value={email}
             textContextType="emailAddress"
             keyboardType="email-address"
@@ -40,16 +43,22 @@ export const LoginScreen = ({ navigation }) => {
           />
         </Spacer>
         <Spacer size="large"></Spacer>
-        <AuthButton
-          mode="contained"
-          onPress={() => {
-            console.log(email, password);
-            onLogin(email, password);
-          }}
-          icon="lock-open-outline"
-        >
-          Login
-        </AuthButton>
+
+        {!isLoading ? (
+          <AuthButton
+            mode="contained"
+            onPress={() => {
+              console.log(email, password);
+              onLogin(email, password);
+            }}
+            icon="lock-open-outline"
+          >
+            Login
+          </AuthButton>
+        ) : (
+          <ActivityIndicator animating={true} color={Colors.blue300} />
+        )}
+
         <Spacer size="large"></Spacer>
 
         <AuthButton
@@ -57,13 +66,12 @@ export const LoginScreen = ({ navigation }) => {
           onPress={() => {
             navigation.navigate("Main");
           }}
-          icon="lock-open-outline"
         >
           Back
         </AuthButton>
 
         {error && (
-          <Spacer size="large">
+          <Spacer size="small">
             <Text variant="error">{error}</Text>
           </Spacer>
         )}
