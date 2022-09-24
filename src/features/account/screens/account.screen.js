@@ -1,5 +1,5 @@
 import React from "react";
-
+// import LottieView from "lottie-react-native";
 import {
   AccountBackground,
   AccountContainer,
@@ -14,6 +14,17 @@ export const AccountScreen = ({ navigation }) => {
     <AccountBackground>
       <AccountCover />
       <AccountContainer>
+        {/* <LottieView
+          autoPlay
+          style={{
+            width: 100,
+            height: 100,
+            backgroundColor: "#eee",
+          }}
+          // Find more Lottie files at https://lottiefiles.com/featured
+          source={require("../../../../assets/order-food.json")}
+        /> */}
+
         <AuthButton
           onPress={() => navigation.navigate("Login")}
           mode="contained"

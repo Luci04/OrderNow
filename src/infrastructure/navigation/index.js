@@ -7,10 +7,6 @@ import { AccountNavigator } from "./account.navigator";
 export const Navigation = () => {
   const { user } = useContext(AuthenticationContext);
 
-  if (user) {
-    console.log(user.uid);
-  }
-
   return (
     <NavigationContainer>
       {user ? <AppNavigator /> : <AccountNavigator />}

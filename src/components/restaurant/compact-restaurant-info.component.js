@@ -29,11 +29,13 @@ const CompactRestaurantInfo = ({ restaurant, FavList = false }) => {
 
   return (
     <Item>
-      <Image
-        source={{
-          uri: restaurant.photos[0],
-        }}
-      />
+      {FavList && (
+        <Image
+          source={{
+            uri: restaurant.photos[0],
+          }}
+        />
+      )}
       <Text variant="caption">{restaurant.name}</Text>
     </Item>
   );
